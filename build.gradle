@@ -1,0 +1,53 @@
+/*
+ * This file is part of Guru Cue Search & Recommendation Engine.
+ * Copyright (C) 2017 Guru Cue Ltd.
+ *
+ * Guru Cue Search & Recommendation Engine is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU General
+ * Public License as published by the Free Software Foundation, either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * Guru Cue Search & Recommendation Engine is distributed in the hope
+ * that it will be useful, but WITHOUT ANY WARRANTY; without even the
+ * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Guru Cue Search & Recommendation Engine. If not, see
+ * <http://www.gnu.org/licenses/>.
+ */
+apply plugin: 'java'
+apply plugin: 'maven'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// This project is not supposed to be built as it is to be deployed in source form.
+// This build script is there mainly for IDEs to automatically pull in libraries.
+
+group = 'com.gurucue.recommendations'
+version = '1.0.0'
+
+repositories {
+    flatDir dirs: 'libs'
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.apache.logging.log4j:log4j-api:2.2'
+    compile 'org.apache.logging.log4j:log4j-core:2.2'
+    compile 'com.google.guava:guava:18.0'
+    compile 'net.sf.trove4j:trove4j:3.0.3'
+    compile 'com.gurucue.recommendations:database:1.0.0'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Implementation-Title': 'Blenders for the recommendations service',
+                'Implementation-version': version,
+                'Built-By': System.properties.'user.name'
+        )
+    }
+    setBaseName 'blenders'
+}
